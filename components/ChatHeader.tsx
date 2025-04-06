@@ -3,8 +3,11 @@
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { Button } from "./ui/button";
 import { User } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 
 export default function ChatHeader({user}: {user:User | undefined}) {
+
+    const router = useRouter()
 
     const handleLoginWithGithub = () => {
         const supabase = supabaseBrowser()
@@ -14,6 +17,12 @@ export default function ChatHeader({user}: {user:User | undefined}) {
                 redirectTo: location.origin + "/auth/callback"
             }
         })
+    }
+
+    const handleLogout = async () => {
+        const supabase = supabaseBrowser()
+        await supabase.auth.signOut()
+        router.refresh()
     }
 
     return (
@@ -27,7 +36,7 @@ export default function ChatHeader({user}: {user:User | undefined}) {
                     </div>
                 </div>
                 {
-                    user ? <Button onClick={handleLoginWithGithub}>Logout</Button> : 
+                    user ? <Button onClick={handleLogout}>Logout</Button> : 
                     <Button onClick={handleLoginWithGithub}>Login</Button>
                 }
                 
