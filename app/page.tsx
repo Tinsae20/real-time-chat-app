@@ -1,6 +1,6 @@
 
 import ChatHeader from "@/components/ChatHeader";
-import InitUser from "@/lib/store/initUser";
+import InitUser from "@/lib/store/InitUser";
 import { supabaseServer } from "@/lib/supabase/server";
 
 export default async function Page() {
